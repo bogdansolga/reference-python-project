@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Sections - Product API{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Sections</h1>
+
+{% if sections %}
+<ul class="space-y-2 mb-6">
+    {% for section in sections %}
+    <li class="p-3 bg-zinc-200 dark:bg-zinc-800 rounded">
+        <span class="font-medium">{{ section.name }}</span>
+        <span class="text-zinc-500 text-sm ml-2">#{{ section.id }}</span>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-zinc-600 dark:text-zinc-400 mb-6">No sections found.</p>
+{% endif %}
+
+<a href="/" class="text-sm text-zinc-600 dark:text-zinc-400 hover:underline">&larr; Back</a>
+{% endblock %}

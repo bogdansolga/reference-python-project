@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Products - Product API{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Products</h1>
+
+{% if products %}
+<ul class="space-y-2 mb-6">
+    {% for product in products %}
+    <li class="p-3 bg-zinc-200 dark:bg-zinc-800 rounded flex justify-between items-center">
+        <span>
+            <span class="font-medium">{{ product.name }}</span>
+            <span class="text-zinc-500 text-sm ml-2">#{{ product.id }}</span>
+        </span>
+        <span class="text-green-600 dark:text-green-400 font-mono">${{ "%.2f"|format(product.price) }}</span>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-zinc-600 dark:text-zinc-400 mb-6">No products found.</p>
+{% endif %}
+
+<a href="/" class="text-sm text-zinc-600 dark:text-zinc-400 hover:underline">&larr; Back</a>
+{% endblock %}
