@@ -43,7 +43,7 @@ source venv/bin/activate
 python -m src.app
 ```
 
-The server starts at http://localhost:5000
+The server starts at http://localhost:8000
 
 ## Test Credentials
 

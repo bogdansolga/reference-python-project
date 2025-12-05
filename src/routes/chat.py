@@ -1,12 +1,14 @@
 import os
+from pathlib import Path
 from flask import Blueprint, request, Response, jsonify
 from openai import OpenAI
 from lib.constants import HTTP_BAD_REQUEST
 
 bp = Blueprint("chat", __name__, url_prefix="/api/chat")
 
-SYSTEM_PROMPT = """You are a helpful assistant for a product management system.
-You can help users understand and manage their products and sections."""
+# Load system prompt from file
+_prompt_path = Path(__file__).parent.parent / "prompts" / "chat-system.md"
+SYSTEM_PROMPT = _prompt_path.read_text()
 
 
 @bp.route("", methods=["POST"])
