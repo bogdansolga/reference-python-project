@@ -31,10 +31,13 @@ cp .env.example .env
 
 Edit `.env`:
 ```
-OPENAI_API_KEY=your-openai-api-key-here
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
 ```
 
-The `OPENAI_API_KEY` is required for the AI chat feature.
+The AI chat feature runs on Claude. Use a direct `ANTHROPIC_API_KEY` for local
+demos, or route through **Claude on Vertex AI** (set `ANTHROPIC_VERTEX_PROJECT_ID`
++ `CLOUD_ML_REGION`, authenticate with `gcloud auth application-default login` —
+no API key needed). Override the model with `CHAT_MODEL`. See `.env.example`.
 
 ## Running the Development Server
 
@@ -71,7 +74,7 @@ The server starts at http://localhost:8000
 - `DELETE /api/v1/product/<id>` - Delete product
 
 ### Chat
-- `POST /api/chat` - AI chat (requires `OPENAI_API_KEY` env var)
+- `POST /api/chat` - AI chat, powered by Claude (direct `ANTHROPIC_API_KEY`, or Claude on Vertex AI)
 
 ## UI Pages
 
