@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reference-python
+  namespace: reference-python
+spec:
+  selector:
+    app: reference-python
+  ports:
+    - port: 8000
+      targetPort: 8000

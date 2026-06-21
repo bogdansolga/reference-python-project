@@ -90,6 +90,32 @@ source venv/bin/activate
 pytest
 ```
 
+## Deploy to Kubernetes
+
+A minimal manifest set lives in [`k8s/`](k8s/) — Namespace, ConfigMap, Secret
+(template), Deployment, Service, and a Traefik Ingress. The container runs
+**gunicorn** binding `0.0.0.0:8000` (Flask's `app.run()` binds localhost, which is
+unreachable in a pod).
+
+```bash
+# build + push (multi-arch)
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -t <registry>/reference-python-project:1.0 --push .
+
+# namespace + non-secret objects
+kubectl apply -f k8s/
+
+# the API key is NOT committed — create the Secret out-of-band:
+kubectl -n reference-python create secret generic app-secrets \
+  --from-literal=ANTHROPIC_API_KEY=sk-ant-...
+
+kubectl -n reference-python rollout status deployment/reference-python
+```
+
+The Ingress uses `ingressClassName: traefik` (k3s default). SQLite is ephemeral
+(auto-seeds on boot); add a PVC + `DATABASE_PATH` to persist. See
+`k8s/11-secret.example.yaml`.
+
 ## Project Structure
 
 ```

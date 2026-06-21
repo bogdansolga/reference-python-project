@@ -11,9 +11,9 @@ SYSTEM_PROMPT = _prompt_path.read_text()
 
 # Claude by default (the AI part of the course runs on Claude — via a direct
 # Anthropic key for trainer demos, or Claude on Vertex AI for the GCP path).
-# Override with CHAT_MODEL. On Vertex, model ids are date-suffixed
-# (e.g. "claude-haiku-4-5@20251001") — set CHAT_MODEL accordingly.
-DEFAULT_MODEL = "claude-haiku-4-5"
+# Override with CHAT_MODEL. Current model ids are bare (e.g. "claude-sonnet-4-6",
+# "claude-opus-4-8"); older ones were date-suffixed ("...@20251001").
+DEFAULT_MODEL = "claude-sonnet-4-6"
 DEFAULT_MAX_TOKENS = 1024
 
 
@@ -46,7 +46,7 @@ def _build_client():
         return AnthropicVertex(
             project_id=os.environ["ANTHROPIC_VERTEX_PROJECT_ID"],
             region=os.environ.get("CLOUD_ML_REGION")
-            or os.environ.get("ANTHROPIC_VERTEX_REGION", "us-east5"),
+            or os.environ.get("ANTHROPIC_VERTEX_REGION", "europe-west1"),
         )
 
     from anthropic import Anthropic

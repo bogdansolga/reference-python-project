@@ -44,9 +44,9 @@ class _FakeClient:
         self.messages = _FakeMessages(chunks, recorder)
 
 
-def test_resolve_model_defaults_to_haiku(monkeypatch):
+def test_resolve_model_defaults_to_sonnet(monkeypatch):
     monkeypatch.delenv("CHAT_MODEL", raising=False)
-    assert chat._resolve_model() == "claude-haiku-4-5"
+    assert chat._resolve_model() == "claude-sonnet-4-6"
 
 
 def test_resolve_model_honors_env(monkeypatch):
@@ -95,4 +95,4 @@ def test_chat_streams_text_and_passes_system_separately(client, monkeypatch):
     assert recorder["system"] == chat.SYSTEM_PROMPT
     assert recorder["messages"] == user_messages
     assert "max_tokens" in recorder
-    assert recorder["model"] == "claude-haiku-4-5"
+    assert recorder["model"] == "claude-sonnet-4-6"

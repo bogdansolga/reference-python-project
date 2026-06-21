@@ -1,0 +1,20 @@
+# Exposed via k3s's built-in traefik. nip.io resolves *.185.104.181.115.nip.io
+# to the node IP — no /etc/hosts edits needed.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: reference-python
+  namespace: reference-python
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: python.185.104.181.115.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: reference-python
+                port:
+                  number: 8000

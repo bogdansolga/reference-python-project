@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: reference-python
+data:
+  CHAT_MODEL: claude-sonnet-4-6
+  CHAT_MAX_TOKENS: "1024"
